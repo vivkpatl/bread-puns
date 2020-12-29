@@ -40,7 +40,7 @@ Setup basic REST API routes for HTTP handler
 */
 func (wc *WebController) SetupRoutes() {
 	wc.engine.GET("/pun", impl.GetPun)
-
+	wc.engine.GET("/", impl.GetHealth)
 	// TODO: More API stuff for registration???? SNS stuff too? Cron procedure?
 }
 

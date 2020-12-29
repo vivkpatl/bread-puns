@@ -27,3 +27,7 @@ func GetPun(c *gin.Context) {
 
 	c.JSON(http.StatusOK, breadPun)
 }
+
+func GetHealth(c *gin.Context) {
+	c.JSON(http.StatusOK, "Application is healthy!")
+}
