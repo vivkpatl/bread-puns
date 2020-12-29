@@ -15,9 +15,9 @@ import (
 
 type WebController struct {
 	address string
-	engine *gin.Engine
-	server http.Server
-	stopCh chan os.Signal
+	engine  *gin.Engine
+	server  http.Server
+	stopCh  chan os.Signal
 }
 
 func NewWebController(port string, sigClose chan os.Signal) *WebController {
@@ -27,7 +27,7 @@ func NewWebController(port string, sigClose chan os.Signal) *WebController {
 	wc.stopCh = sigClose
 	wc.engine = gin.Default()
 	wc.server = http.Server{
-		Addr: wc.address,
+		Addr:    wc.address,
 		Handler: wc.engine,
 	}
 	wc.SetupRoutes()
@@ -56,15 +56,15 @@ func (wc *WebController) Start() {
 	go func() {
 		for {
 			select {
-				case <-wc.stopCh:
-					wc.Shutdown()
+			case <-wc.stopCh:
+				wc.Shutdown()
 			}
 		}
 	}()
 }
 
 func (wc *WebController) Shutdown() {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 5)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
 	err := wc.server.Shutdown(ctx)
@@ -72,5 +72,5 @@ func (wc *WebController) Shutdown() {
 		log.Fatal("WebController could not gracefully shutdown!", err)
 	}
 
-	log.Println("WebController successfully shut down");
+	log.Println("WebController successfully shut down")
 }

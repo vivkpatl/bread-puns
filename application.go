@@ -18,16 +18,19 @@ func main() {
 		port = "5000"
 	}
 
+	// Configuration variables
+
 	// Set up system interrupts channel
 	sigClose := make(chan os.Signal, 1)
 	signal.Notify(sigClose, syscall.SIGINT, syscall.SIGTERM)
 
 	// Set up WebController
 	wc := webController.NewWebController(port, sigClose)
+	//snsc := snsController.NewSnsController(snsTopicArn, sigClose)
 
 	// Run da ting
 	go wc.Start()
-	// go snsc.Start()
+	//go snsc.Start()
 
 	<-sigClose
 	log.Println("Shutting down service... bye :)")
