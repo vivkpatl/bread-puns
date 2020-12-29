@@ -12,11 +12,14 @@ phases:
       - echo Getting packages
       - go get ./...
       - echo Building Go application...
-      - go build -o application application.go
+      - go build -o bin/application application.go
+      - go test . -v
   post_build:
     commands:
       - echo Build completed.
 artifacts:
   files:
-    - application
+    - config/*
+    - controllers/*
+    - application.go
     - go.mod
